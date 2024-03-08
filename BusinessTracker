@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Partner Database</title>
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+</head>
+<body>
+
+<h2>Partner Database</h2>
+
+<form id="searchForm">
+    <label for="keyword">Search by Keyword:</label>
+    <input type="text" id="keyword" name="keyword">
+    <button type="submit">Search</button>
+</form>
+
+<form id="filterForm">
+    <label for="organizationType">Filter by Organization Type:</label>
+    <select id="organizationType" name="organizationType">
+        <option value="">Select Type</option>
+        <option value="Financial Partner">Financial Partner</option>
+        <option value="Resources Partner">Resources Partner</option>
+        <option value="Program Partner">Program Partner</option>
+    </select>
+    <button type="submit">Filter</button>
+</form>
+
+<h3>Add a New Business Partner:</h3>
+<form id="addPartnerForm">
+    <label for="partnerName">Name:</label>
+    <input type="text" id="partnerName" name="partnerName" required><br>
+    <label for="partnerType">Organization Type:</label>
+    <select id="partnerType" name="partnerType" required>
+        <option value="">Select Type</option>
+        <option value="Financial Partner">Financial Partner</option>
+        <option value="Resources Partner">Resources Partner</option>
+        <option value="Program Partner">Program Partner</option>
+    </select><br>
+    <label for="resources">Resources Available:</label>
+    <input type="text" id="resources" name="resources" required><br>
+    <label for="contactInfo">Contact Info:</label>
+    <input type="text" id="contactInfo" name="contactInfo" required><br>
+    <button type="submit">Add Partner</button>
+</form>
+
+<table id="partnerTable">
+    <tr>
+        <th>Name</th>
+        <th>Organization Type</th>
+        <th>Resources Available</th>
+        <th>Contact Info</th>
+    </tr>
+    <!-- Partners will be dynamically added here -->
+</table>
+
+<script>
+document.getElementById("searchForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    searchPartners(document.getElementById("keyword").value.trim().toLowerCase());
+});
+
+document.getElementById("filterForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    filterPartners(document.getElementById("organizationType").value.trim().toLowerCase());
+});
+
+document.getElementById("addPartnerForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    addPartner();
+});
+
+function searchPartners(keyword) {
+    let table = document.getElementById("partnerTable");
+    let rows = table.getElementsByTagName("tr");
+    for (let i = 1; i < rows.length; i++) {
+        let name = rows[i].getElementsByTagName("td")[0].innerText.toLowerCase();
+        let organizationType = rows[i].getElementsByTagName("td")[1].innerText.toLowerCase();
+        if (name.includes(keyword) || organizationType.includes(keyword)) {
+            rows[i].style.display = "";
+        } else {
+            rows[i].style.display = "none";
+        }
+    }
+}
+
+function filterPartners(type) {
+    let table = document.getElementById("partnerTable");
+    let rows = table.getElementsByTagName("tr");
+    for (let i = 1; i < rows.length; i++) {
+        let organizationType = rows[i].getElementsByTagName("td")[1].innerText.toLowerCase();
+        if (organizationType === type || type === "") {
+            rows[i].style.display = "";
+        } else {
+            rows[i].style.display = "none";
+        }
+    }
+}
+
+function addPartner() {
+    let name = document.getElementById("partnerName").value.trim();
+    let type = document.getElementById("partnerType").value.trim();
+    let resources = document.getElementById("resources").value.trim();
+    let contactInfo = document.getElementById("contactInfo").value.trim();
+
+    if (name && type && resources && contactInfo) {
+        let table = document.getElementById("partnerTable");
+        let newRow = table.insertRow(-1);
+        let cell1 = newRow.insertCell(0);
+        let cell2 = newRow.insertCell(1);
+        let cell3 = newRow.insertCell(2);
+        let cell4 = newRow.insertCell(3);
+        cell1.innerHTML = name;
+        cell2.innerHTML = type;
+        cell3.innerHTML = resources;
+        cell4.innerHTML = contactInfo;
+
+        // Clear the form fields after adding partner
+        document.getElementById("addPartnerForm").reset();
+    } else {
+        alert("Please fill out all fields.");
+    }
+}
+</script>
+
+</body>
+</html>
