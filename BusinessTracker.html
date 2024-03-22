@@ -16,6 +16,7 @@
     }
     th {
         background-color: #f2f2f2;
+        cursor: pointer; 
     }
 </style>
 </head>
@@ -84,6 +85,12 @@ document.getElementById("addPartnerForm").addEventListener("submit", function(ev
     addPartner();
 });
 
+document.getElementById("partnerTable").addEventListener("click", function(event) {
+    if (event.target.tagName === "TH") {
+        sortPartners(event.target.cellIndex);
+    }
+});
+
 function searchPartners(keyword) {
     let table = document.getElementById("partnerTable");
     let rows = table.getElementsByTagName("tr");
@@ -136,7 +143,7 @@ function addPartner() {
     }
 }
 
-function sortPartners(){
+function sortPartners(index){
     
 }
 </script>
