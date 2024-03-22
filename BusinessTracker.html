@@ -143,8 +143,47 @@ function addPartner() {
     }
 }
 
-function sortPartners(index){
+function sortPartners(index) {
+    let table = document.getElementById("partnerTable");
+    let rows = table.getElementsByTagName("tr");
     
+    if (rows.length <= 1) {
+        alert("There is no data to sort.");
+        return;
+    }
+
+    let sortedRows;
+
+    if(index===0){
+        sortedRows = Array.from(rows).slice(1).sort((a, b) => {
+        let nameA = a.getElementsByTagName("td")[0].innerText.toLowerCase();
+        let nameB = b.getElementsByTagName("td")[0].innerText.toLowerCase();
+        
+        if (index === 0) {
+            return nameA.localeCompare(nameB);
+        }
+    });
+    } else if(index===1){
+        sortedRows = Array.from(rows).slice(2).slice(0,1).sort((a, b) => {
+        let partnerTypeA = a.getElementsByTagName("td")[1].innerText.toLowerCase();
+        let partnerTypeB = b.getElementsByTagName("td")[1].innerText.toLowerCase();
+        
+        if (index === 1) {
+            return nameA.localeCompare(nameB);
+        }
+    });
+    }
+    
+
+    // Remove existing rows from table
+    for (let i = rows.length - 1; i > 0; i--) {
+        table.deleteRow(i);
+    }
+
+    // Append sorted rows to table
+    for (let row of sortedRows) {
+        table.appendChild(row);
+    }
 }
 </script>
 
