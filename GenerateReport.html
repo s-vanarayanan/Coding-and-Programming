@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generate Report</title>
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    th {
+        background-color: #f2f2f2;
+        cursor: pointer; 
+    }
+    /* Style for the navigation bar */
+    .navbar {
+        overflow: hidden;
+        background-color: #59ab6b;
+    }
+    .navbar a {
+        float: left;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+    .navbar a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+    /* Style for the overall header */
+    .header {
+        background-color: #4f9866;
+        text-align: center;
+        padding: 20px;
+    }
+</style>
+</head>
+<body>
+    <!-- Overall header -->
+    <div class="header">
+        <h1>Generate Report</h1>
+    </div>
+
+    <div class="navbar">
+        <!-- <a> element represents a hyperlink -->
+        <a href="HomePage.html">Home</a>
+        <a href="AddBusinesses.html">Add/Search Partners</a>
+        <a href="GenerateReport.html">Generate Report</a>
+    </div>
+
+    <script>
+        // Save table data to local storage
+    function saveDataToLocalStorage() {
+        let table = AddBusinesses.getElementById("partnerTable");
+        let data = [];
+
+        for (let i = 1; i < table.rows.length; i++) {
+            let row = table.rows[i];
+            let rowData = {
+                name: row.cells[0].innerText,
+                organizationType: row.cells[1].innerText,
+                resourcesAvailable: row.cells[2].innerText,
+                contactInfo: row.cells[3].innerText
+            };
+            data.push(rowData);
+        }
+
+        localStorage.setItem("partnerData", JSON.stringify(data));
+    }
+
+    // Load table data from local storage
+    function loadDataFromLocalStorage() {
+        
+        let data = AddBusinesses.getItem("partnerData");
+        if (data) {
+            data = JSON.parse(data);
+            let table = document.getElementById("partnerTable");
+        
+            for (let i = 0; i < data.length; i++) {
+                let newRow = table.insertRow(-1);
+                newRow.insertCell(0).innerText = data[i].name;
+                newRow.insertCell(1).innerText = data[i].organizationType;
+                newRow.insertCell(2).innerText = data[i].resourcesAvailable;
+                newRow.insertCell(3).innerText = data[i].contactInfo;
+            }
+        }
+    }
+
+    // Call this function when the page loads to load data from local storage
+    loadDataFromLocalStorage();
+
+    </script>
+</body>
