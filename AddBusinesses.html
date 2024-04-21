@@ -143,6 +143,7 @@ document.getElementById("filterForm").addEventListener("submit", function(event)
 document.getElementById("addPartnerForm").addEventListener("submit", function(event) {
     event.preventDefault();
     addPartner();
+    saveDataToLocalStorage();
 });
 
 document.getElementById("partnerTable").addEventListener("click", function(event) {
@@ -312,7 +313,7 @@ function loadDataFromLocalStorage() {
             newRow.insertCell(3).innerText = data[i].contactInfo;
         }
     }
-    return table;
+    
 }
 
 // Call this function when the page loads to load data from local storage
