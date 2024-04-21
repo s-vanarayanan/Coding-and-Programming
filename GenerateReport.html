@@ -49,6 +49,8 @@
         <h1>Generate Report</h1>
     </div>
 
+    
+
     <div class="navbar">
         <!-- <a> element represents a hyperlink -->
         <a href="HomePage.html">Home</a>
@@ -56,46 +58,39 @@
         <a href="GenerateReport.html">Generate Report</a>
     </div>
 
+    <table id="partnerTableCopy">
+        <tr>
+            <th>Name</th>
+            <th>Organization Type</th>
+            <th>Resources Available</th>
+            <th>Contact Info</th>
+        </tr>
+        <!-- Partners will be dynamically added here -->
+    </table>
+
     <script>
-        // Save table data to local storage
-    function saveDataToLocalStorage() {
-        let table = AddBusinesses.getElementById("partnerTable");
-        let data = [];
-
-        for (let i = 1; i < table.rows.length; i++) {
-            let row = table.rows[i];
-            let rowData = {
-                name: row.cells[0].innerText,
-                organizationType: row.cells[1].innerText,
-                resourcesAvailable: row.cells[2].innerText,
-                contactInfo: row.cells[3].innerText
-            };
-            data.push(rowData);
-        }
-
-        localStorage.setItem("partnerData", JSON.stringify(data));
-    }
-
+    
     // Load table data from local storage
     function loadDataFromLocalStorage() {
-        
-        let data = AddBusinesses.getItem("partnerData");
+        let data = localStorage.getItem("partnerData");
         if (data) {
             data = JSON.parse(data);
-            let table = document.getElementById("partnerTable");
-        
+            let table = document.getElementById("partnerTableCopy");
             for (let i = 0; i < data.length; i++) {
                 let newRow = table.insertRow(-1);
                 newRow.insertCell(0).innerText = data[i].name;
                 newRow.insertCell(1).innerText = data[i].organizationType;
                 newRow.insertCell(2).innerText = data[i].resourcesAvailable;
                 newRow.insertCell(3).innerText = data[i].contactInfo;
-            }
+            }          
+        } else {
+            alert("No data found");
         }
     }
 
+    
     // Call this function when the page loads to load data from local storage
     loadDataFromLocalStorage();
-
+    
     </script>
 </body>
