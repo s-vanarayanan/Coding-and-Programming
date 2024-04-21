@@ -236,6 +236,13 @@ document.getElementById("partnerTable").addEventListener("click", function(event
     }
 });
 
+document.getElementById("partnerTable").addEventListener("click", function(event) {
+    event.preventDefault();
+    if (event.target.tagName === "TH") {
+        sortPartners(event.target.cellIndex);
+    }
+});
+
 function searchPartners(keyword) {
     let table = document.getElementById("partnerTable");
     let rows = table.getElementsByTagName("tr");
@@ -334,6 +341,50 @@ function loadDataFromLocalStorage() {
     }
 }
 
+function sortPartners(index) {
+    let table = document.getElementById("partnerTable");
+    let rows = table.getElementsByTagName("tr");
+    
+    if (rows.length <= 1) {
+        alert("There is no data to sort.");
+        return;
+    }
+
+    let sortedRows;
+
+    if (index === 0) {
+        sortedRows = Array.from(rows).slice(1).sort((a, b) => {
+            let nameA = a.getElementsByTagName("td")[0].innerText.toLowerCase();
+            let nameB = b.getElementsByTagName("td")[0].innerText.toLowerCase();
+
+            return nameA.localeCompare(nameB);
+        });
+    } 
+    else if (index === 1) {
+        sortedRows = Array.from(rows).slice(1).sort((a, b) => {
+            let partnerTypeA = a.getElementsByTagName("td")[1].innerText.toLowerCase();
+            let partnerTypeB = b.getElementsByTagName("td")[1].innerText.toLowerCase();
+
+            return partnerTypeA.localeCompare(partnerTypeB);
+        });
+    } 
+    else if (index === 2) {
+        sortedRows = Array.from(rows).slice(1).sort((a, b) => {
+            let resourcesA = a.getElementsByTagName("td")[2].innerText.toLowerCase();
+            let resourcesB = b.getElementsByTagName("td")[2].innerText.toLowerCase();
+
+            return resourcesA.localeCompare(resourcesB);
+        });
+    } 
+    else if (index === 3) {
+        sortedRows = Array.from(rows).slice(1).sort((a, b) => {
+            let contactInfoA = a.getElementsByTagName("td")[3].innerText.toLowerCase();
+            let contactInfoB = b.getElementsByTagName("td")[3].innerText.toLowerCase();
+
+            return contactInfoA.localeCompare(contactInfoB);
+        });
+    }
+}
 // Call this function when the page loads to load data from local storage
 loadDataFromLocalStorage();
 
