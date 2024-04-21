@@ -5,41 +5,76 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Generate Report</title>
 <style>
-    table {
-        width: 100%;
-        border-collapse: collapse;
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #a3b18a;
+        margin: 0;
+        padding: 0;
     }
+
+    .header {
+        background-color: #3a5a40;
+        color: #ffffff;
+        text-align: center;
+        padding: 20px;
+        border-bottom: 4px solid #3a5a40;
+    }
+
+    .navbar {
+        overflow: hidden;
+        background-color: #588157;
+        text-align: center;
+    }
+
+    .navbar a {
+        display: inline-block;
+        color: rgb(255, 255, 255);
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+    .navbar a:hover {
+        background-color: #344e41;
+    }
+
+    /* Style for the download button */
+    #downloadButton {
+        display: block;
+        margin: 20px auto;
+        background-color: #4f9866;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    #downloadButton:hover {
+        background-color: #3c7b53;
+    }
+
+    /* Style for the partner table */
+    table {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
     th, td {
         padding: 8px;
         text-align: left;
         border-bottom: 1px solid #ddd;
     }
+
     th {
         background-color: #f2f2f2;
-        cursor: pointer; 
-    }
-    /* Style for the navigation bar */
-    .navbar {
-        overflow: hidden;
-        background-color: #59ab6b;
-    }
-    .navbar a {
-        float: left;
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-    }
-    .navbar a:hover {
-        background-color: #ddd;
-        color: black;
-    }
-    /* Style for the overall header */
-    .header {
-        background-color: #4f9866;
-        text-align: center;
-        padding: 20px;
+        cursor: pointer;
     }
 </style>
 </head>
@@ -69,8 +104,6 @@
         </tr>
         <!-- Partners will be dynamically added here -->
     </table>
-
-
 
     <script>
     // Load table data from local storage
