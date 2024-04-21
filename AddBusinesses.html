@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Business Tracker</title>
 <style>
+    /*Formatting for this Add/Search Partners*/
     body {
         font-family: Arial, sans-serif;
         background-color: #a3b18a;
@@ -106,7 +107,7 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
-
+/* Table formatting */
     th, td {
         padding: 8px;
         text-align: left;
@@ -155,7 +156,7 @@
     <a href="GenerateReport.html">Generate Report</a>
 </div>
 
-
+/*contains different forms for the website*/
 <div class="flex-container">
     <div class="form-container">
         <h3>Search Partners</h3>
@@ -180,6 +181,7 @@
         </form>
     </div>
 
+    
     <div class="form-container">
         <h3>Add a New Business Partner</h3>
         <form id="addPartnerForm">
@@ -201,6 +203,7 @@
     </div>
 </div>
 
+/*Table of partners (with option to delete)*/
 <table id="partnerTable">
     <tr>
         <th>Name</th>
@@ -213,6 +216,7 @@
 </table>
 
 <script>
+    /*checks for when forms are filled and submitted*/
 document.getElementById("searchForm").addEventListener("submit", function(event) {
     event.preventDefault();
     searchPartners(document.getElementById("keyword").value.trim().toLowerCase());
@@ -229,20 +233,17 @@ document.getElementById("addPartnerForm").addEventListener("submit", function(ev
     saveDataToLocalStorage();
 });
 
+//checks if user is trying to delete an element or sort the table
 document.getElementById("partnerTable").addEventListener("click", function(event) {
     if (event.target.classList.contains("delete-button")) {
         let row = event.target.parentNode.parentNode;
         deletePartner(row);
-    }
-});
-
-document.getElementById("partnerTable").addEventListener("click", function(event) {
-    event.preventDefault();
-    if (event.target.tagName === "TH") {
+    } else if (event.target.tagName === "TH") {
         sortPartners(event.target.cellIndex);
     }
 });
 
+//searches for a specific name or organization type in the table
 function searchPartners(keyword) {
     let table = document.getElementById("partnerTable");
     let rows = table.getElementsByTagName("tr");
@@ -257,6 +258,7 @@ function searchPartners(keyword) {
     }
 }
 
+//filters table entries by organization type
 function filterPartners(type) {
     let table = document.getElementById("partnerTable");
     let rows = table.getElementsByTagName("tr");
@@ -270,6 +272,7 @@ function filterPartners(type) {
     }
 }
 
+//allows users to add partners to the table
 function addPartner() {
     let name = document.getElementById("partnerName").value.trim();
     let type = document.getElementById("partnerType").value.trim();
@@ -300,12 +303,14 @@ function addPartner() {
     }
 }
 
+//users can delete partners from the table
 function deletePartner(row) {
     let rowIndex = row.rowIndex;
     document.getElementById("partnerTable").deleteRow(rowIndex);
     saveDataToLocalStorage(); // Update local storage after deletion
 }
 
+//saves table data to localStorage so that it will save when the browser is closed
 function saveDataToLocalStorage() {
     let table = document.getElementById("partnerTable");
     let data = [];
@@ -324,6 +329,7 @@ function saveDataToLocalStorage() {
     localStorage.setItem("partnerData", JSON.stringify(data));
 }
 
+//loads data from localStorage
 function loadDataFromLocalStorage() {
     let data = localStorage.getItem("partnerData");
     if (data) {
@@ -341,6 +347,7 @@ function loadDataFromLocalStorage() {
     }
 }
 
+//sorts partners based on the index that is clicked 
 function sortPartners(index) {
     let table = document.getElementById("partnerTable");
     let rows = table.getElementsByTagName("tr");
@@ -353,6 +360,7 @@ function sortPartners(index) {
     let sortedRows;
 
     if (index === 0) {
+        //takes two arrays a and b, gets the name in column 0 for both arrays and sorts them
         sortedRows = Array.from(rows).slice(1).sort((a, b) => {
             let nameA = a.getElementsByTagName("td")[0].innerText.toLowerCase();
             let nameB = b.getElementsByTagName("td")[0].innerText.toLowerCase();
@@ -385,6 +393,7 @@ function sortPartners(index) {
         });
     }
 }
+
 // Call this function when the page loads to load data from local storage
 loadDataFromLocalStorage();
 
