@@ -49,14 +49,16 @@
         <h1>Generate Report</h1>
     </div>
 
-    
-
     <div class="navbar">
         <!-- <a> element represents a hyperlink -->
+        <a href="Instructions.html">FAQ</a>
         <a href="HomePage.html">Home</a>
         <a href="AddBusinesses.html">Add/Search Partners</a>
         <a href="GenerateReport.html">Generate Report</a>
     </div>
+
+    <!-- Button to download the table data -->
+    <button id="downloadButton">Download Report</button>
 
     <table id="partnerTableCopy">
         <tr>
@@ -68,8 +70,9 @@
         <!-- Partners will be dynamically added here -->
     </table>
 
+
+
     <script>
-    
     // Load table data from local storage
     function loadDataFromLocalStorage() {
         let data = localStorage.getItem("partnerData");
@@ -88,9 +91,31 @@
         }
     }
 
-    
+    // Function to download table data as a CSV file
+    function downloadReport() {
+        let table = document.getElementById("partnerTableCopy");
+        let csv = [];
+        for (let row of table.rows) {
+            let rowData = [];
+            for (let cell of row.cells) {
+                rowData.push(cell.innerText);
+            }
+            csv.push(rowData.join(","));
+        }
+        let csvContent = "data:text/csv;charset=utf-8," + csv.join("\n");
+        let encodedUri = encodeURI(csvContent);
+        let link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "report.csv");
+        document.body.appendChild(link);
+        link.click();
+    }
+
     // Call this function when the page loads to load data from local storage
     loadDataFromLocalStorage();
-    
+
+    // Add click event listener to the download button
+    document.getElementById("downloadButton").addEventListener("click", downloadReport);
     </script>
 </body>
+</html>
