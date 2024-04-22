@@ -60,6 +60,21 @@
         margin: 20px auto; /* Center the container horizontally */
         max-width: 600px; /* Limit width to improve readability */
     }
+
+    /* Logout button styling */
+    .logout-btn {
+        background-color: #e74c3c;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .logout-btn:hover {
+        background-color: #c0392b;
+    }
 </style>
 </head>
 <body>
@@ -81,6 +96,16 @@
 <div class="container">
     <h1>Welcome to School Sync!</h1>
     <h3>Use this application to add, search for, and store the business partners of your school!!</h3>
+    <!-- Logout button -->
+    <button class="logout-btn" onclick="logout()">Logout</button>
 </div>
+
+<script>
+function logout() {
+    // Redirect to the login page
+    window.location.href = "login.html";
+}
+</script>
+
 </body>
 </html>
