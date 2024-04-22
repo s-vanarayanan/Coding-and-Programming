@@ -110,22 +110,34 @@
 </div>
 
 <script>
-document.getElementById("loginForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
-    // Retrieve the stored credentials from local storage
-    var storedUsername = localStorage.getItem("username");
-    var storedPassword = localStorage.getItem("password");
-    // Check if the entered credentials match the stored credentials
-    if (username === storedUsername && password === storedPassword) {
-        alert("Login successful!");
-        window.location.href = "HomePage.html"; // Redirect to the home page
-    } else {
-        alert("Incorrect username or password. Please try again.");
-    }
-});
-</script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        
+        // Retrieve the stored user data from localStorage
+        var users = JSON.parse(localStorage.getItem("users")) || [];
+        
+        // Find the user with the provided username
+        var user = users.find(function(user) {
+            return user.username === username;
+        });
+        
+        if (!user) {
+            alert("User not found. Please register first.");
+            return;
+        }
+        
+        // Check if the password matches the stored password for the user
+        if (password === user.password) {
+            alert("Login successful!");
+            window.location.href = "HomePage.html"; // Redirect to the home page
+        } else {
+            alert("Incorrect password. Please try again.");
+        }
+    });
+    </script>
+    
 
 </body>
 </html>

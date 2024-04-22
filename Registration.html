@@ -110,17 +110,35 @@
 </div>
 
 <script>
-document.getElementById("registrationForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
-    // Store the user credentials in local storage or send them to a server for registration
-    localStorage.setItem("username", username);
-    localStorage.setItem("password", password);
-    alert("Registration successful! You can now login.");
-    window.location.href = "Login.html"; // Redirect to the login page
-});
-</script>
+    document.getElementById("registrationForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        
+        // Retrieve existing user data from localStorage
+        var users = JSON.parse(localStorage.getItem("users")) || [];
+        
+        // Check if the username already exists
+        var existingUser = users.find(function(user) {
+            return user.username === username;
+        });
+        
+        if (existingUser) {
+            alert("Username already exists. Please choose a different one.");
+            return;
+        }
+        
+        // Add the new user to the array
+        users.push({ username: username, password: password });
+        
+        // Store the updated user data back into localStorage
+        localStorage.setItem("users", JSON.stringify(users));
+        
+        alert("Registration successful! You can now login.");
+        window.location.href = "login.html"; // Redirect to the login page
+    });
+    </script>
+    
 
 </body>
 </html>
