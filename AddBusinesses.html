@@ -236,7 +236,8 @@ document.getElementById("partnerTable").addEventListener("click", function(event
     if (event.target.classList.contains("delete-button")) {
         let row = event.target.parentNode.parentNode;
         deletePartner(row);
-    } else if (event.target.tagName === "TH") {
+    } 
+    if (event.target.tagName === "TH") {
         sortPartners(event.target.cellIndex);
     }
 });
@@ -389,6 +390,16 @@ function sortPartners(index) {
 
             return contactInfoA.localeCompare(contactInfoB);
         });
+    }
+
+    // Remove existing rows from table
+    for (let i = rows.length - 1; i > 0; i--) {
+        table.deleteRow(i);
+    }
+
+    // Append sorted rows to table
+    for (let row of sortedRows) {
+        table.appendChild(row);
     }
 }
 
