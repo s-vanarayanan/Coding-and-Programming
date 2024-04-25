@@ -110,32 +110,31 @@
 </div>
 
 <script>
+    //JS code that takes the user input into the registration form, confirms
+    //that the username doesnt already exist, then saves username/password to local storage
     document.getElementById("registrationForm").addEventListener("submit", function(event) {
         event.preventDefault();
+        //user enters user/password
         var username = document.getElementById("username").value;
         var password = document.getElementById("password").value;
-        
-        // Retrieve existing user data from localStorage
+        // retrieve existing user data from localStorage
         var users = JSON.parse(localStorage.getItem("users")) || [];
-        
         // Check if the username already exists
         var existingUser = users.find(function(user) {
             return user.username === username;
         });
-        
+        //data input validation
         if (existingUser) {
             alert("Username already exists. Please choose a different one.");
             return;
         }
-        
-        // Add the new user to the array
+        // add the new user to the array
         users.push({ username: username, password: password });
-        
-        // Store the updated user data back into localStorage
+        // store the updated user data back into localStorage
         localStorage.setItem("users", JSON.stringify(users));
-        
         alert("Registration successful! You can now login.");
-        window.location.href = "login.html"; // Redirect to the login page
+        // Redirect to the login page
+        window.location.href = "login.html"; 
     });
     </script>
     
