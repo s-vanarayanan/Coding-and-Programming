@@ -302,12 +302,15 @@ function addPartner() {
     }
 }
 
-//users can delete partners from the table
+// Users can delete partners from the table
 function deletePartner(row) {
-    let rowIndex = row.rowIndex;
-    document.getElementById("partnerTable").deleteRow(rowIndex);
-    saveDataToLocalStorage(); // Update local storage after deletion
+    if (confirm("Are you sure you want to delete this partner?")) {
+        let rowIndex = row.rowIndex;
+        document.getElementById("partnerTable").deleteRow(rowIndex);
+        saveDataToLocalStorage(); // Update local storage after deletion
+    }
 }
+
 
 //saves table data to localStorage so that it will save when the browser is closed
 function saveDataToLocalStorage() {
